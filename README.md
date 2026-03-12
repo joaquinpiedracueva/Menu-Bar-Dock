@@ -1,4 +1,4 @@
-# MenuBarDock
+<h1 align="center">MenuBarDock</h1>
 
 <p align="center">
   <img src="./MenuBarDock/Assets.xcassets/AppIcon.appiconset/MenuBarDock-macOS-ClearDark-1024x1024@1x.png" width="128" alt="MenuBarDock icon">
