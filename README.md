@@ -1,10 +1,12 @@
 # MenuBarDock
 
+<p align="center">
+  <img src="./MenuBarDock/Assets.xcassets/AppIcon.appiconset/MenuBarDock-macOS-ClearDark-1024x1024@1x.png" width="128" alt="MenuBarDock icon">
+</p>
+
 Shows your running and pinned apps as icons in the macOS menu bar — with notification badges mirrored from the Dock.
 
 ![Preview](./assets/menu-bar-dock-preview.png)
-
-![Preferences](./assets/menu-bar-dock-prefs.png)
 
 ## Features
 
@@ -15,6 +17,8 @@ Shows your running and pinned apps as icons in the macOS menu bar — with notif
 - **Customizable** — adjust icon size, slot width, sorting, and opening behavior per app
 - **Launch at login** — start automatically when you log in
 
+![Preferences](./assets/menu-bar-dock-prefs.png)
+
 ## Requirements
 
 - macOS 10.15 or later
@@ -24,17 +28,20 @@ Shows your running and pinned apps as icons in the macOS menu bar — with notif
 ## Run locally
 
 **1. Clone the repo**
+
 ```bash
 git clone https://github.com/joaquinpiedracueva/menubar-sentry.git
 cd menubar-sentry
 ```
 
 **2. Install dependencies**
+
 ```bash
 pod install
 ```
 
 **3. Open the workspace** (not the `.xcodeproj`)
+
 ```bash
 open MenuBarDock.xcworkspace
 ```
