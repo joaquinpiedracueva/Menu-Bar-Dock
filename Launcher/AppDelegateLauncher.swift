@@ -23,7 +23,7 @@ class AppDelegateLauncher: NSObject {
 extension AppDelegateLauncher: NSApplicationDelegate {
 
 	func applicationDidFinishLaunching(_ aNotification: Notification) {
-		let mainAppIdentifier = "com.ethansk.MenuBarSentry"
+		let mainAppIdentifier = "com.ethansk.MenuBarDock"
 		let runningApps = NSWorkspace.shared.runningApplications
 		let isRunning = !runningApps.filter { $0.bundleIdentifier == mainAppIdentifier }.isEmpty
 
@@ -41,7 +41,7 @@ extension AppDelegateLauncher: NSApplicationDelegate {
 			components.removeLast() // launche the .app, not the binary
 
 //			components.append("MacOS")
-//			components.append("MenuBarSentry") //main app name
+//			components.append("MenuBarDock") //main app name
 
 			let newPath = NSString.path(withComponents: components)
 

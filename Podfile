@@ -9,7 +9,7 @@ target 'Launcher' do
 
 end
 
-target 'MenuBarSentry' do
+target 'MenuBarDock' do
   use_frameworks!
 end
 

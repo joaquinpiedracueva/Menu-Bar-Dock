@@ -1,86 +1,60 @@
- <div style="text-align: center;">
-  <a href="https://www.aiwallpapergenerator.ai/" target="_blank" rel="noopener noreferrer">
-    <img src="./assets/AiWallpaperBadge.png" alt="Download AI Wallpaper Generator" width="1000">
-  </a>
-</div>
-<br />
+# MenuBarDock
 
-# [MenuBarSentry](https://www.menubardock.com/)
+Shows your running and pinned apps as icons in the macOS menu bar — with notification badges mirrored from the Dock.
 
- <p align="center">
-  <img src="./favicon.ico"/>
-</p>
+![Preview](./assets/menu-bar-dock-preview.png)
 
-![Preview Image](./assets/menu-bar-dock-preview.webp)
+![Preferences](./assets/menu-bar-dock-prefs.png)
 
-### MenuBarSentry shows MacOS apps in the menu bar. With a click of the app icon, you can open the app straight from the menu bar.
+## Features
 
-<div style="text-align: center;">
-  <a href="https://github.com/EthanSK/Menu-Bar-Dock/releases/latest/download/Menu.Bar.Dock.app.zip">
-    <img src="./assets/DownloadButton.png" alt="Download MenuBarSentry">
-  </a>
-</div>
-<br />
-**It is highly recommended that you enable automatically hide and show the dock in system preferences**.
-Now you have freed up all that space at the bottom of the screen where the dock used to always be showing, and you can open apps by
-clicking their icon in the menu bar at the top!
+- **App icons in the menu bar** — click to open, right-click for options (hide, quit, reveal in Finder)
+- **Notification badges** — badge counts from the Dock are displayed directly on the menu bar icons
+- **Running apps** — automatically shows your currently open apps
+- **Pinned apps** — add any app to always show it regardless of whether it's running
+- **Customizable** — adjust icon size, slot width, sorting, and opening behavior per app
+- **Launch at login** — start automatically when you log in
 
-![Preferences example](./assets/menu-bar-dock-prefs.png)
+## Requirements
 
-MenuBarSentry can work in two ways: running apps and regular apps. To get an experience most similar to the normal dock
-you're used to, just use regular apps. Do this by going to preferences (right-click a menu bar item), add your desired
-apps to the 'Regular Apps' section, then set the max number of running apps to 0. However, we recommend you give the
-running apps feature a try, it can be very useful for switching quickly between recently used apps.
+- macOS 10.15 or later
+- Xcode 13 or later
+- [CocoaPods](https://cocoapods.org) — install with `sudo gem install cocoapods`
 
-### Reasons to use MenuBarSentry ...
+## Run locally
 
-- **Save screen space** - You don't need the normal dock to show at the bottom of your screen any more. Lots of valuable
-  space saved! While automatically unhiding the dock to go to your app solves the problem of screen space, you must wait
-  until it shows (if it even does show - often it doesn't due to lag), then look for the icon you want, then drag your
-  mouse across the screen to click and open it. Who actually wants that?
+**1. Clone the repo**
+```bash
+git clone https://github.com/joaquinpiedracueva/menubar-sentry.git
+cd menubar-sentry
+```
 
-- **Laggy computers** - If your computer suffers from lag when your activity gets more heavy and starts causing problems
-  with switching apps, this is the perfect app for you.
+**2. Install dependencies**
+```bash
+pod install
+```
 
-- **Save time and increase comfort** - While the Command+Tab shortcut can switch between your open apps in order, it
-  requires one hand always on the keyboard, and can be laggy and take a while to show - by then you could have unhide
-  the dock and found the app you want to click on manually! Time-wasting!
+**3. Open the workspace** (not the `.xcodeproj`)
+```bash
+open MenuBarDock.xcworkspace
+```
 
-### Extra info
+**4. Configure signing**
 
-Access the preferences window by right-clicking any app being displayed in the menu bar dock, and then selecting 'Menu
-Bar Dock Preferences' at the bottom.
+In Xcode, select the **MenuBarDock** target → **Signing & Capabilities** → uncheck **Automatically manage signing** → set **Signing Certificate** to **Sign to Run Locally**. Repeat for the **Launcher** target. No developer account needed.
 
-If you hold command while dragging the icons to place them where you would like on the menu bar. It will reorder
-automatically once you change apps again.
+**5. Build and run**
 
-For more info and tips, press the blue 'i' in the general section of the preferences window of the app.
+Press **Cmd+R**. The app will appear in your menu bar.
 
-Any feedback or queries can be submitted [here](https://github.com/EthanSK/Menu-Bar-Dock/issues)
+**6. Grant Accessibility permission**
 
-The number of downloads for this app can be found by running
-`curl -s https://api.github.com/repos/EthanSK/Menu-Bar-Dock/releases | egrep '"name"|"updated_at"|"download_count"'` in
-a terminal.
+On first launch macOS will prompt for Accessibility access — this is required for notification badges to work. You can also add it manually in **System Settings → Privacy & Security → Accessibility**.
 
-Support this project:
+## Install to Applications
 
-<link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet"><a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/ETGgames"><img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:15px;font-size:28px !important;"> Buy me a coffee</span></a>
+After a successful build in Xcode:
 
-### Notes
-
-- Do not upload the binary directly to github releases. Upload a compressed version, otherwise the app won't open after
-  download.
-
-- To check downloads of MenuBarSentry, use Github API https://stackoverflow.com/a/4339085/6820042
-  `curl -s https://api.github.com/repos/EthanSK/Menu-Bar-Dock/releases | egrep '"name"|"download_count"'`
-
-- When exporting, distribute it and make sure to upload to Apple's notary services, otherwise it will give a warning
-  when trying to it normally (and Chrome will say that the download is potentially unsafe)
-
-- Disabled app sandbox, otherwise it can't quit apps using the dropdown menu on right click
-
-- The login item for the launcher is found in the file at `/private/var/db/com.apple.xpc.launchd/loginitems.501.plist`
-
-- The plist with the user prefs is _usually_ found in the file at
-  `/Users/ethansarif-kattan/Library/Preferences/com.ethansk.MenuBarSentry.plist`. Use
-  `defaults delete com.ethansk.MenuBarSentry` in terminal to delete it properly.
+1. In the left sidebar, expand the **Products** group
+2. Right-click **MenuBarDock.app** → **Show in Finder**
+3. Drag the `.app` to your **Applications** folder
