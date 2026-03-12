@@ -1,6 +1,6 @@
 //
 //  Constants.swift
-//  MenuBarDock
+//  MenuBarSentry
 //
 //  Created by Ethan Sarif-Kattan on 03/03/2019.
 //  Copyright © 2019 Ethan Sarif-Kattan. All rights reserved.
@@ -10,8 +10,8 @@ import Cocoa
 
 enum Constants {
 	enum App {
-		static let name = "Menu Bar Dock"
-		static let launcherBundleId = "com.ethansk.MenuBarDockLauncher"
+		static let name = "MenuBarSentry"
+		static let launcherBundleId = "com.ethansk.MenuBarSentryLauncher"
 		static let finderBundleId = "com.apple.finder"
 		static let regularAppsSectionTitle = "Regular Apps"
 		static let runningAppsSectionTitle = "Running Apps"

@@ -9,22 +9,14 @@ target 'Launcher' do
 
 end
 
-target 'Menu Bar Dock' do
-  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+target 'MenuBarSentry' do
   use_frameworks!
+end
 
-  # Pods for Menu Bar Dock
-	pod 'SwiftLint'
-
-
-  target 'Menu Bar DockTests' do
-    inherit! :search_paths
-    # Pods for testing
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['MACOSX_DEPLOYMENT_TARGET'] = '10.15'
+    end
   end
-
-  target 'Menu Bar DockUITests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
 end

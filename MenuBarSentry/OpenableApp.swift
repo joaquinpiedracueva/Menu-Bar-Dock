@@ -1,6 +1,6 @@
 //
 //  OpenableApp.swift
-//  Menu Bar Dock
+//  MenuBarSentry
 //
 //  Created by Ethan Sarif-Kattan on 11/04/2021.
 //  Copyright © 2021 Ethan Sarif-Kattan. All rights reserved.
@@ -143,7 +143,11 @@ class OpenableApp {
 
         // workaround needed to open Steam, otherwise it opens the app path in Finder
         if bundleId == "com.valvesoftware.steam" {
-            NSWorkspace.shared.launchApplication(withBundleIdentifier: "com.valvesoftware.steam", options: [], additionalEventParamDescriptor: nil, launchIdentifier: nil)
+            if #available(OSX 10.15, *) {
+                let config = NSWorkspace.OpenConfiguration()
+                config.activates = true
+                NSWorkspace.shared.openApplication(at: bundleUrl, configuration: config) { (_, _) in }
+            }
             return
         }
 

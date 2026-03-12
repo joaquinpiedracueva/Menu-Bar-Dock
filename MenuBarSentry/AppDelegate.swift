@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  MenuBarDock
+//  MenuBarSentry
 //
 //  Created by Ethan Sarif-Kattan on 02/03/2019.
 //  Copyright © 2019 Ethan Sarif-Kattan. All rights reserved.
@@ -8,6 +8,7 @@
 
 import Cocoa
 import ServiceManagement
+import ApplicationServices
 
 @NSApplicationMain
 
@@ -24,6 +25,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	var appTracker: AppTracker!
 	var runningApps: RunningApps!
 	var regularApps: RegularApps!
+    var badgeMonitor: BadgeMonitor!
 
 	func applicationDidFinishLaunching(_ aNotification: Notification) {
 		initApp()
@@ -37,10 +39,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	func initApp() {
 		userPrefs.load()
 		storyboard = NSStoryboard(name: "Main", bundle: nil)
+
+        badgeMonitor = BadgeMonitor()
+        requestAccessibilityPermissionIfNeeded()
+        badgeMonitor.start()
+
 		menuBarItems = MenuBarItems(
 			userPrefsDataSource: userPrefs
 		)
 		menuBarItems.delegate = self
+        menuBarItems.badgeMonitor = badgeMonitor
 
 		appTracker = AppTracker()
 		appTracker.delegate = self
@@ -52,6 +60,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 		updateMenuBarItems()
 	}
+
+    private func requestAccessibilityPermissionIfNeeded() {
+        if !AXIsProcessTrusted() {
+            let options = [kAXTrustedCheckOptionPrompt.takeRetainedValue() as String: true] as CFDictionary
+            AXIsProcessTrustedWithOptions(options)
+        }
+    }
 
 	func setupLaunchAtLogin() {
 		let launcherAppId = Constants.App.launcherBundleId

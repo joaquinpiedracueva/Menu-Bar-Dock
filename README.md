@@ -5,7 +5,7 @@
 </div>
 <br />
 
-# [Menu Bar Dock](https://www.menubardock.com/)
+# [MenuBarSentry](https://www.menubardock.com/)
 
  <p align="center">
   <img src="./favicon.ico"/>
@@ -13,11 +13,11 @@
 
 ![Preview Image](./assets/menu-bar-dock-preview.webp)
 
-### Menu Bar Dock shows MacOS apps in the menu bar. With a click of the app icon, you can open the app straight from the menu bar.
+### MenuBarSentry shows MacOS apps in the menu bar. With a click of the app icon, you can open the app straight from the menu bar.
 
 <div style="text-align: center;">
   <a href="https://github.com/EthanSK/Menu-Bar-Dock/releases/latest/download/Menu.Bar.Dock.app.zip">
-    <img src="./assets/DownloadButton.png" alt="Download Menu Bar Dock">
+    <img src="./assets/DownloadButton.png" alt="Download MenuBarSentry">
   </a>
 </div>
 <br />
@@ -27,12 +27,12 @@ clicking their icon in the menu bar at the top!
 
 ![Preferences example](./assets/menu-bar-dock-prefs.png)
 
-Menu Bar Dock can work in two ways: running apps and regular apps. To get an experience most similar to the normal dock
+MenuBarSentry can work in two ways: running apps and regular apps. To get an experience most similar to the normal dock
 you're used to, just use regular apps. Do this by going to preferences (right-click a menu bar item), add your desired
 apps to the 'Regular Apps' section, then set the max number of running apps to 0. However, we recommend you give the
 running apps feature a try, it can be very useful for switching quickly between recently used apps.
 
-### Reasons to use Menu Bar Dock ...
+### Reasons to use MenuBarSentry ...
 
 - **Save screen space** - You don't need the normal dock to show at the bottom of your screen any more. Lots of valuable
   space saved! While automatically unhiding the dock to go to your app solves the problem of screen space, you must wait
@@ -71,7 +71,7 @@ Support this project:
 - Do not upload the binary directly to github releases. Upload a compressed version, otherwise the app won't open after
   download.
 
-- To check downloads of Menu Bar Dock, use Github API https://stackoverflow.com/a/4339085/6820042
+- To check downloads of MenuBarSentry, use Github API https://stackoverflow.com/a/4339085/6820042
   `curl -s https://api.github.com/repos/EthanSK/Menu-Bar-Dock/releases | egrep '"name"|"download_count"'`
 
 - When exporting, distribute it and make sure to upload to Apple's notary services, otherwise it will give a warning
@@ -82,5 +82,5 @@ Support this project:
 - The login item for the launcher is found in the file at `/private/var/db/com.apple.xpc.launchd/loginitems.501.plist`
 
 - The plist with the user prefs is _usually_ found in the file at
-  `/Users/ethansarif-kattan/Library/Preferences/com.ethansk.MenuBarDock.plist`. Use
-  `defaults delete com.ethansk.MenuBarDock` in terminal to delete it properly.
+  `/Users/ethansarif-kattan/Library/Preferences/com.ethansk.MenuBarSentry.plist`. Use
+  `defaults delete com.ethansk.MenuBarSentry` in terminal to delete it properly.

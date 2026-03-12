@@ -1,6 +1,6 @@
 //
 //  MenuBarItems.swift
-//  Menu Bar Dock
+//  MenuBarSentry
 //
 //  Created by Ethan Sarif-Kattan on 10/04/2021.
 //  Copyright © 2021 Ethan Sarif-Kattan. All rights reserved.
@@ -24,6 +24,7 @@ protocol MenuBarItemsDelegate: AnyObject {
 class MenuBarItems {
 	public weak var userPrefsDataSource: MenuBarItemsUserPrefsDataSource!
 	public weak var delegate: MenuBarItemsDelegate?
+    public var badgeMonitor: BadgeMonitor?
 
 	private(set) var items: [MenuBarItem] // ordered left to right
 
@@ -74,6 +75,7 @@ class MenuBarItems {
                 userPrefsDataSource: self
  			)
 			item.delegate = self
+            item.badgeMonitor = badgeMonitor
 			items.append(item)// it's important we never remove items, or the position in the menu bar will be reset. only add if needed, and reuse.
 		}
 	}

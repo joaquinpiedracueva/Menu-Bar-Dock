@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /Users/joaquinpiedracueva/Projects/menubar-sentry -name *.pbxproj -o -name *.xcworkspace -o -name project.pbxproj)",
+      "WebFetch(domain:github.com)"
+    ]
+  }
+}

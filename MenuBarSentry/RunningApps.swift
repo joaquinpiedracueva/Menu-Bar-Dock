@@ -1,6 +1,6 @@
 //
 //  RunningApps.swift
-//  Menu Bar Dock
+//  MenuBarSentry
 //
 //  Created by Ethan Sarif-Kattan on 12/04/2021.
 //  Copyright © 2021 Ethan Sarif-Kattan. All rights reserved.

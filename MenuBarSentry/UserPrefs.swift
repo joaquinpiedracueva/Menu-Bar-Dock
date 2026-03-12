@@ -1,6 +1,6 @@
 //
 //  UserPrefs.swift
-//  MenuBarDock
+//  MenuBarSentry
 //
 //  Created by Ethan Sarif-Kattan on 03/03/2019.
 //  Copyright © 2019 Ethan Sarif-Kattan. All rights reserved.
@@ -17,7 +17,7 @@ enum UserPrefsDefaultValues {
     static let hideDuplicateApps = true
     static let hideFinderFromRunningApps = false
     static let launchAtLogin = true
-    static let maxNumRunningApps = 10 // We need to show some apps when the user first open Menu Bar Dock, or it will be an instant turn off.
+    static let maxNumRunningApps = 10 // We need to show some apps when the user first open MenuBarSentry, or it will be an instant turn off.
     static let preserveAppOrder = true
 	static let regularAppsUrls: [URL] = []
     static let rightClickByDefault = false

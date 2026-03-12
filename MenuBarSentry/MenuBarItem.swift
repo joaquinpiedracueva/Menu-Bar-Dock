@@ -1,6 +1,6 @@
 //
 //  MenuBarItem.swift
-//  Menu Bar Dock
+//  MenuBarSentry
 //
 //  Created by Ethan Sarif-Kattan on 11/04/2021.
 //  Copyright © 2021 Ethan Sarif-Kattan. All rights reserved.
@@ -29,6 +29,7 @@ class MenuBarItem {
 
 	public weak var userPrefsDataSource: MenuBarItemDataSource!
 	public weak var delegate: MenuBarItemDelegate?
+    public weak var badgeMonitor: BadgeMonitor?
 
 	init(
 		statusItem: NSStatusItem,
@@ -41,6 +42,12 @@ class MenuBarItem {
 	}
 
 	func update(for app: OpenableApp, appIconSize: CGFloat, slotWidth: CGFloat) {
+        // Unregister old badge observer if switching to a different app
+        if let oldName = self.app?.name, oldName != app.name {
+            badgeMonitor?.removeObserver(for: oldName)
+            updateBadge(nil)
+        }
+
 		self.app = app
  		let imageSize = appIconSize
         let menuBarHeight: CGFloat = 22 // do not use NSApplication.shared.mainMenu?.menuBarHeight, it doesn't work on MBP 16 inch with notch, because the menu bar reports as bigger than the actual height it uses. 22 is a good fixed height.
@@ -63,9 +70,19 @@ class MenuBarItem {
 		}
 
 		statusItem.length = slotWidth
+
+        // Register for badge updates from the Dock
+        badgeMonitor?.observe(appName: app.name) { [weak self] badgeText in
+            DispatchQueue.main.async {
+                self?.updateBadge(badgeText)
+            }
+        }
 	}
 
 	func reset() {
+        if let appName = self.app?.name {
+            badgeMonitor?.removeObserver(for: appName)
+        }
 		self.app = nil
         if let button = statusItem.button {
             for subview in button.subviews {
@@ -73,6 +90,38 @@ class MenuBarItem {
             }
         }
 	}
+
+    private func updateBadge(_ text: String?) {
+        guard let imageView = statusItem.button?.subviews.first as? NSImageView,
+              let icon = app?.icon else { return }
+
+        guard let text = text, !text.isEmpty else {
+            imageView.image = icon
+            return
+        }
+
+        // Composite the badge directly onto the icon image to avoid clipping by the status item button
+        let size = icon.size
+        let badgeSize = max(size.width * 0.42, 10)
+        let composited = NSImage(size: size)
+        composited.lockFocus()
+        icon.draw(in: NSRect(origin: .zero, size: size))
+
+        let badgeRect = NSRect(x: size.width - badgeSize, y: size.height - badgeSize, width: badgeSize, height: badgeSize)
+        NSColor.systemRed.setFill()
+        NSBezierPath(ovalIn: badgeRect).fill()
+
+        let attrs: [NSAttributedString.Key: Any] = [
+            .font: NSFont.systemFont(ofSize: badgeSize * 0.55, weight: .bold),
+            .foregroundColor: NSColor.white
+        ]
+        let str = NSAttributedString(string: text, attributes: attrs)
+        let strSize = str.size()
+        str.draw(at: NSPoint(x: badgeRect.midX - strSize.width / 2, y: badgeRect.midY - strSize.height / 2))
+        composited.unlockFocus()
+
+        imageView.image = composited
+    }
 
 	private func initButton() {
 		statusItem.button?.wantsLayer = true
@@ -161,11 +210,13 @@ class MenuBarItem {
 		_ = addMenuItem(
 			menu: menu,
 			title: "Quit \(Constants.App.name)",
-			action: #selector(quitMenuBarDock),
+			action: #selector(quitMenuBarSentry),
 			keyEquivalent: ""
 		)
 
-		statusItem.popUpMenu(menu)
+		statusItem.menu = menu
+		statusItem.button?.performClick(nil)
+		statusItem.menu = nil
 	}
 
 	private func addAppOpeningMethodMenuItem(menu: NSMenu) {
@@ -256,7 +307,8 @@ class MenuBarItem {
 		delegate?.didOpenPreferencesWindow()
 	}
 
-	@objc private func quitMenuBarDock(_ sender: Any?) {
+	@objc private func quitMenuBarSentry(_ sender: Any?) {
 		NSApp.terminate(nil)
 	}
 }
+
