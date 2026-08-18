@@ -30,8 +30,8 @@ Shows your running and pinned apps as icons in the macOS menu bar — with notif
 **1. Clone the repo**
 
 ```bash
-git clone https://github.com/joaquinpiedracueva/menubar-sentry.git
-cd menubar-sentry
+git clone https://github.com/joaquinpiedracueva/menubar-dock.git
+cd menubar-dock
 ```
 
 **2. Install dependencies**
